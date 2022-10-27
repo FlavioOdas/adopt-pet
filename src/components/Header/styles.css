@@ -1,0 +1,43 @@
+.header {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 35px 0 60px;
+}
+
+.inner-header {
+  width: 1170px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  text-align: left;
+}
+
+.logo a {
+  color: #3a3a3a;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  font: 700 15px "Karla";
+  color: #414141;
+  position: relative;
+  top: -15px;
+}
+
+.header-right a {
+  text-decoration: none;
+  color: #414141;
+  font-weight: 700;
+  margin-right: 15px;
+  position: relative;
+}

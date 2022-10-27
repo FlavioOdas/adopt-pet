@@ -1,0 +1,25 @@
+.main-banner-slide {
+  position: relative;
+}
+
+.main-banner-slide img {
+  width: 100%;
+  max-width: none;
+}
+
+.nivo-html-caption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: #fff;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 0;
+}

@@ -1,0 +1,76 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  box-sizing: border-box;
+  position: absolute;
+  background-color: #0000a0;
+  border-radius: 55px;
+  width: 1170px;
+  margin: 0 auto;
+  top: 142%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.sitenav {
+  display: flex;
+}
+
+.sitenav a {
+  padding: 30px 0px;
+  margin: 0 12px;
+  text-align: center;
+  transition: all 0.2s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-size: 13px;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.sitenav a:first-child,
+.sitenav a:hover {
+  color: #fbcd69;
+}
+
+.searchbar {
+  position: relative;
+  margin: 19px 0;
+}
+
+form.search-form {
+  margin-bottom: 20px;
+}
+
+.searchbar .search-field {
+  width: 233px;
+  height: 39px;
+  background-color: #ffffff;
+  border-radius: 55px;
+  border: none;
+  float: right;
+  text-transform: uppercase;
+  color: #444444;
+  padding-right: 50px;
+  padding: 7px 15px;
+}
+
+.searchbar .search-form input[type="submit"] {
+  position: absolute;
+  padding: 0;
+  right: 0;
+  background: url(https://gaarcampinas.org/wp-content/themes/petlove-pro/images/search.png)
+    no-repeat center 13px;
+  width: 39px;
+  height: 39px;
+  border: none;
+}

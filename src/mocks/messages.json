@@ -1,0 +1,348 @@
+[
+  {
+    "id": "default",
+    "messages": [
+      {
+        "trigger": "start-first",
+        "message": "Olá, humano! Eu sou a Gamora, irei te ajudar a encontrar seu novo amigo!",
+        "options": null,
+        "next": "start-second"
+      },
+      {
+        "trigger": "start-second",
+        "message": "Fico feliz que me chamou, tenho muitos amigos que precisam de um lar!",
+        "options": null,
+        "next": "start-third"
+      },
+      {
+        "trigger": "start-third",
+        "message": "Você tem preferência por gatos ou cachorros?",
+        "options": [
+          {
+            "property": "type",
+            "trigger": "start-cat",
+            "label": "Gato",
+            "value": "Gatos"
+          },
+          {
+            "property": "type",
+            "trigger": "start-dog",
+            "label": "Cachorro",
+            "value": "Cachorros"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "start-dog",
+        "message": "Tudo bem, cães são legais também",
+        "options": null,
+        "next": "gender-dog"
+      },
+      {
+        "trigger": "gender-dog",
+        "message": "Você tem preferência por fêmea ou macho?",
+        "options": [
+          {
+            "property": "gender",
+            "trigger": "gender-dog-answer",
+            "label": "Fêmea",
+            "value": "Fêmea"
+          },
+          {
+            "property": "gender",
+            "trigger": "gender-dog-answer",
+            "label": "Macho",
+            "value": "Macho"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "gender-dog-answer",
+        "message": "Boa escolha! Agora vamos falar sobre portes...",
+        "options": null,
+        "next": "size-dog"
+      },
+      {
+        "trigger": "size-dog",
+        "message": "Você tem preferência por tamanho de porte?",
+        "options": [
+          {
+            "property": "size",
+            "trigger": "size-small",
+            "label": "Pequeno",
+            "value": "Pequeno"
+          },
+          {
+            "property": "size",
+            "trigger": "size-medium",
+            "label": "Médio",
+            "value": "Médio"
+          },
+          {
+            "property": "size",
+            "trigger": "size-big",
+            "label": "Grande",
+            "value": "Grande"
+          },
+          {
+            "property": "size",
+            "trigger": "size-all",
+            "label": "Qualquer",
+            "value": "Não tenho preferência"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "size-small",
+        "message": "Boa escolha!",
+        "options": null,
+        "next": "home-dog"
+      },
+      {
+        "trigger": "size-medium",
+        "message": "Boa escolha!",
+        "options": null,
+        "next": "home-dog"
+      },
+      {
+        "trigger": "size-big",
+        "message": "Boa escolha!",
+        "options": null,
+        "next": "home-dog"
+      },
+      {
+        "trigger": "size-all",
+        "message": "Tudo bem, encontraremos o tamanho certo para você!",
+        "options": null,
+        "next": "home-dog"
+      },
+      {
+        "trigger": "home-dog",
+        "message": "Onde você mora?",
+        "options": [
+          {
+            "property": "apto",
+            "trigger": "house-dog",
+            "label": false,
+            "value": "Casa"
+          },
+          {
+            "property": "apto",
+            "trigger": "apartment-dog",
+            "label": true,
+            "value": "Apartamento"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "house-dog",
+        "message": "Uau, os cães adoram espaço para brincar!",
+        "options": null,
+        "next": "other-animals-dog"
+      },
+      {
+        "trigger": "apartment-dog",
+        "message": "Lembrando que é sempre obrigatório colocar telas nas janelas para a segurança do seu amigo",
+        "options": null,
+        "next": "other-animals-dog"
+      },
+      {
+        "trigger": "other-animals-dog",
+        "message": "Você tem outros animais?",
+        "options": [
+          {
+            "property": "otherAnimals",
+            "trigger": "other-animals-yes-dog",
+            "label": true,
+            "value": "Sim"
+          },
+          {
+            "property": "otherAnimals",
+            "trigger": "other-animals-no-dog",
+            "label": false,
+            "value": "Não"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "other-animals-yes-dog",
+        "message": "Que bom! Quanto mais companhia, melhor.",
+        "options": null,
+        "next": "children-dog"
+      },
+      {
+        "trigger": "other-animals-no-dog",
+        "message": "Tudo bem, vários cachorros preferem ter somente o tutor como amigo",
+        "options": null,
+        "next": "children-dog"
+      },
+
+      {
+        "trigger": "children-dog",
+        "message": "Na sua casa tem crianças?",
+        "options": [
+          {
+            "property": "children",
+            "trigger": "children-yes-dog",
+            "label": true,
+            "value": "Sim"
+          },
+          {
+            "property": "children",
+            "trigger": "children-no-dog",
+            "label": false,
+            "value": "Não"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "children-yes-dog",
+        "message": "Que legal! Tenho muitos amigos que amam crianças.",
+        "options": null,
+        "next": "ending"
+      },
+      {
+        "trigger": "children-no-dog",
+        "message": "Tudo bem, cães são ótimos companheiros para adultos também.",
+        "options": null,
+        "next": "ending"
+      },
+      {
+        "trigger": "start-cat",
+        "message": "Escolheu bem, nós gatos somos muito mais inteligentes",
+        "options": null,
+        "next": "gender-cat"
+      },
+      {
+        "trigger": "gender-cat",
+        "message": "Você tem preferência por fêmea ou macho?",
+        "options": [
+          {
+            "property": "gender",
+            "trigger": "gender-cat-answer",
+            "label": "Fêmea",
+            "value": "Fêmea"
+          },
+          {
+            "property": "gender",
+            "trigger": "gender-cat-answer",
+            "label": "Macho",
+            "value": "Macho"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "gender-cat-answer",
+        "message": "Boa escolha!",
+        "options": null,
+        "next": "home-cat"
+      },
+      {
+        "trigger": "home-cat",
+        "message": "Onde você mora?",
+        "options": [
+          {
+            "property": "apto",
+            "trigger": "house-cat",
+            "label": false,
+            "value": "Casa"
+          },
+          {
+            "property": "apto",
+            "trigger": "apartment-cat",
+            "label": true,
+            "value": "Apartamento"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "house-cat",
+        "message": "Legal! Lembrando sempre de manter o animal em segurança em casas maiores.",
+        "options": null,
+        "next": "other-animals-cat"
+      },
+      {
+        "trigger": "apartment-cat",
+        "message": "Perfeito, apartamentos são mais seguros para gatos. Lembrando que é sempre obrigatório colocar telas nas janelas para a segurança do seu amigo.",
+        "options": null,
+        "next": "other-animals-cat"
+      },
+      {
+        "trigger": "other-animals-cat",
+        "message": "Você tem outros animais?",
+        "options": [
+          {
+            "property": "otherAnimals",
+            "trigger": "other-animals-yes-cat",
+            "label": true,
+            "value": "Sim"
+          },
+          {
+            "property": "otherAnimals",
+            "trigger": "other-animals-no-cat",
+            "label": false,
+            "value": "Não"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "other-animals-yes-cat",
+        "message": "Que bom! Quanto mais companhia, melhor.",
+        "options": null,
+        "next": "children-cat"
+      },
+      {
+        "trigger": "other-animals-no-cat",
+        "message": "Tudo bem, vários gatinhos preferem ter somente o tutor como amigo",
+        "options": null,
+        "next": "children-cat"
+      },
+      {
+        "trigger": "children-cat",
+        "message": "Na sua casa tem crianças?",
+        "options": [
+          {
+            "property": "children",
+            "trigger": "children-yes-cat",
+            "label": true,
+            "value": "Sim"
+          },
+          {
+            "property": "children",
+            "trigger": "children-no-cat",
+            "label": false,
+            "value": "Não"
+          }
+        ],
+        "next": null
+      },
+      {
+        "trigger": "children-yes-cat",
+        "message": "Que bom! Gatos são ótimos companheiros para crianças.",
+        "options": null,
+        "next": "ending"
+      },
+      {
+        "trigger": "children-no-cat",
+        "message": "Tudo bem, gatos são ótimos companheiros para adultos também.",
+        "options": null,
+        "next": "ending"
+      },
+      {
+        "trigger": "ending",
+        "message": "Encontrei um amigo perfeito para você, ele te chamou! Tenho que ir, preciso achar mais lares para meus outros amigos!",
+        "options": null,
+        "next": null
+      }
+    ]
+  }
+]
