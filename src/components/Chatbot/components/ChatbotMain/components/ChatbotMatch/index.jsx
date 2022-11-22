@@ -7,7 +7,7 @@ import "../../../../styles.css";
 const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
   const [messageLoading, setMessageLoading] = useState(false);
 
-  const animalMessages = animalMatch?.historia?.split(". ") ?? null;
+  const animalMessages = animalMatch?.historia ?? null;
 
   const [chat, setChat] = useState([
     `Oi, eu sou ${animalMatch.gender.toLowerCase() === "macho" ? "o" : "a"} ${
@@ -119,7 +119,7 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
               }`}
             >
               <div className="chatbot-link">
-                <a href="https://gaarcampinas.org/pretermo.php">
+                <a target="_top" href="https://gaarcampinas.org/pretermo.php">
                   Quero adotar!
                 </a>
               </div>

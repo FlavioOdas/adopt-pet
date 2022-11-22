@@ -195,7 +195,10 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
                     </div>
                   </div>
                   <div className="chatbot-link">
-                    <a href="http://gaarcampinas.org/queroadotar.php">
+                    <a
+                      target="_top"
+                      href="http://gaarcampinas.org/queroadotar.php"
+                    >
                       CONHECER OUTROS AMIGOS
                     </a>
                   </div>
