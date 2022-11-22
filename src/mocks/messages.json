@@ -339,7 +339,7 @@
       },
       {
         "trigger": "ending",
-        "message": "Encontrei um amigo perfeito para você, ele te chamou! Tenho que ir, preciso achar mais lares para meus outros amigos!",
+        "message": null,
         "options": null,
         "next": null
       }

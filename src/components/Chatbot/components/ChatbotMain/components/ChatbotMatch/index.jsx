@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import gatito from "../../../../../../assets/gatito-white.png";
 import exit from "../../../../../../assets/exit.svg";
 import texting from "../../../../../../assets/waiting-texting.gif";
@@ -36,9 +36,20 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
       setChat([...chat, "Clique na minha foto para saber mais sobre mim!"]);
   }, [chatEnded]);
 
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chat, messageLoading, chatEnded]);
+
   return (
     <div className="chatbot-main">
       <div
+        onClick={() => setAnimalInfoOpen(true)}
         className={`chatbot-header ${
           animalMatch.gender === "Macho" ? "male" : "female"
         }`}
@@ -61,6 +72,11 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
       <div id="chatbot-body" className="chatbot-body">
         {animalInfoOpen ? (
           <div className="animal-info">
+            <div className="animal-info-go-back">
+              <button onClick={() => setAnimalInfoOpen(false)}>
+                <img src={exit} alt="Voltar" />
+              </button>
+            </div>
             <div className="animal-info-image">
               <img src={animalMatch.image} alt="animal" />
             </div>
@@ -102,9 +118,11 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
                 animalMatch.gender === "Macho" ? "male" : "female"
               }`}
             >
-              <button onClick={() => setAnimalInfoOpen(false)}>
-                Quero adotar!
-              </button>
+              <div className="chatbot-link">
+                <a href="https://gaarcampinas.org/pretermo.php">
+                  Quero adotar!
+                </a>
+              </div>
             </div>
           </div>
         ) : (
@@ -139,6 +157,7 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
                 </div>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
         )}
       </div>

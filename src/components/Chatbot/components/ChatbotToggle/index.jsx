@@ -3,14 +3,17 @@ import gatito from "../../../../assets/gatito-white.png";
 import exit from "../../../../assets/exit.svg";
 import "../../styles.css";
 
-const ChatbotToggle = ({ setShowChatbot }) => {
+const ChatbotToggle = ({ setShowChatbot, setChatbotMinimized }) => {
   return (
     <div className="chatbot-toggle">
       <div className="chatbot-toggle-image">
         <img src={gatito} alt="chatbot" />
       </div>
       <div className="chatbot-toggle-header">
-        <button className="chatbot-toggle-exit">
+        <button
+          onClick={() => setChatbotMinimized(true)}
+          className="chatbot-toggle-exit"
+        >
           <img src={exit} alt="exit" />
         </button>
       </div>

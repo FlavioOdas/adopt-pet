@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import gatito from "../../../../assets/gatito-white.png";
 import exit from "../../../../assets/exit.svg";
 import texting from "../../../../assets/waiting-texting.gif";
@@ -22,6 +22,8 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
 
   const [animalMatch, setAnimalMatch] = useState(null);
 
+  const [foundAnimals, setFoundAnimals] = useState([]);
+
   useEffect(() => {
     if (chat.at(-1).next !== null) {
       setMessageLoading(true);
@@ -31,9 +33,6 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
         );
         setChat([...chat, messsageToAdd]);
         setMessageLoading(false);
-
-        var elem = document.getElementById("chatbot-body-inner");
-        elem.scrollTop = elem.scrollHeight;
       }, 1500);
     }
 
@@ -47,33 +46,37 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
   useEffect(() => {
     if (!chatEnded) return;
 
-    const foundAnimal = animals.filter((animal) => {
-      if (chatbotData.petData.type === "Cachorro") {
-        return (
-          animal.type === chatbotData.petData.type &&
-          animal.size === chatbotData.petData.size &&
-          animal.otherAnimals === chatbotData.petData.otherAnimals &&
-          animal.children === chatbotData.petData.children &&
-          animal.apto === chatbotData.petData.apto &&
-          animal.gender === chatbotData.petData.gender
-        );
-      } else {
-        return (
-          animal.type === chatbotData.petData.type &&
-          animal.otherAnimals === chatbotData.petData.otherAnimals &&
-          animal.children === chatbotData.petData.children &&
-          animal.apto === chatbotData.petData.apto &&
-          animal.gender === chatbotData.petData.gender
-        );
-      }
-    });
-
-    if (foundAnimal) {
-      setAnimalMatch(
-        foundAnimal[Math.floor(Math.random() * foundAnimal.length)]
-      );
-    }
+    setFoundAnimals(
+      animals.filter((animal) => {
+        if (chatbotData.petData.type === "Cachorro") {
+          return (
+            animal.type === chatbotData.petData.type &&
+            animal.size === chatbotData.petData.size &&
+            animal.otherAnimals === chatbotData.petData.otherAnimals &&
+            animal.children === chatbotData.petData.children &&
+            animal.apto === chatbotData.petData.apto &&
+            animal.gender === chatbotData.petData.gender
+          );
+        } else {
+          return (
+            animal.type === chatbotData.petData.type &&
+            animal.otherAnimals === chatbotData.petData.otherAnimals &&
+            animal.children === chatbotData.petData.children &&
+            animal.apto === chatbotData.petData.apto &&
+            animal.gender === chatbotData.petData.gender
+          );
+        }
+      })
+    );
   }, [chatEnded]);
+
+  useEffect(() => {
+    if (foundAnimals.length > 0) {
+      const currentAnimal = Math.floor(Math.random() * foundAnimals.length);
+
+      setAnimalMatch(foundAnimals[currentAnimal]);
+    }
+  }, [foundAnimals]);
 
   const fetchNextMessage = (trigger, data, label) => {
     const messsageToAdd = defaultMessage.messages.find(
@@ -85,6 +88,16 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
     }));
     setChat([...chat, messsageToAdd]);
   };
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chat, messageLoading, chatEnded, animalMatch]);
 
   return (
     <>
@@ -107,16 +120,19 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
         </div>
         <div id="chatbot-body" className="chatbot-body">
           <div id="chatbot-body-inner" className="chatbot-body-inner">
-            {chat?.map((chatMessage, index) => (
-              <div key={index} className={`chatbot-message`}>
-                <div className="chatbot-message-image">
-                  <img src={gatito} alt="chatbot" />
-                </div>
-                <div className="chatbot-message-text">
-                  <p>{chatMessage?.message}</p>
-                </div>
-              </div>
-            ))}
+            {chat?.map(
+              (chatMessage, index) =>
+                chatMessage.message && (
+                  <div key={index} className={`chatbot-message`}>
+                    <div className="chatbot-message-image">
+                      <img src={gatito} alt="chatbot" />
+                    </div>
+                    <div className="chatbot-message-text">
+                      <p>{chatMessage?.message}</p>
+                    </div>
+                  </div>
+                )
+            )}
             {messageLoading && (
               <div className={`chatbot-message waiting`}>
                 <div className="chatbot-message-image">
@@ -151,11 +167,48 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
               </div>
             )}
 
+            {chatEnded &&
+              (animalMatch ? (
+                <div className={`chatbot-message`}>
+                  <div className="chatbot-message-image">
+                    <img src={gatito} alt="chatbot" />
+                  </div>
+                  <div className="chatbot-message-text">
+                    <p>
+                      Encontrei um amigo perfeito para você, ele te chamou!
+                      Tenho que ir, preciso achar mais lares para meus outros
+                      amigos!
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className={`chatbot-message`}>
+                    <div className="chatbot-message-image">
+                      <img src={gatito} alt="chatbot" />
+                    </div>
+                    <div className="chatbot-message-text">
+                      <p>
+                        Ainda não encontramos um amigo para você, mas você pode
+                        dar uma olhada em outros amigos
+                      </p>
+                    </div>
+                  </div>
+                  <div className="chatbot-link">
+                    <a href="http://gaarcampinas.org/queroadotar.php">
+                      CONHECER OUTROS AMIGOS
+                    </a>
+                  </div>
+                </>
+              ))}
+
             {chatEnded && (
               <div className="chatbot-message-exit">
                 <p>Gamora saiu do chat</p>
               </div>
             )}
+
+            <div ref={messagesEndRef} />
           </div>
         </div>
       </div>
