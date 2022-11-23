@@ -24,6 +24,8 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
 
   const [foundAnimals, setFoundAnimals] = useState([]);
 
+  const [foundAnimalsFiltered, setFoundAnimalsFiltered] = useState([]);
+
   useEffect(() => {
     if (chat.at(-1).next !== null) {
       setMessageLoading(true);
@@ -48,14 +50,15 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
 
     setFoundAnimals(
       animals.filter((animal) => {
-        if (chatbotData.petData.type === "Cachorro") {
+        if (chatbotData.petData.type === "Canina") {
           return (
             animal.type === chatbotData.petData.type &&
             animal.size === chatbotData.petData.size &&
             animal.otherAnimals === chatbotData.petData.otherAnimals &&
             animal.children === chatbotData.petData.children &&
             animal.apto === chatbotData.petData.apto &&
-            animal.gender === chatbotData.petData.gender
+            animal.gender === chatbotData.petData.gender &&
+            animal.available
           );
         } else {
           return (
@@ -63,7 +66,8 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
             animal.otherAnimals === chatbotData.petData.otherAnimals &&
             animal.children === chatbotData.petData.children &&
             animal.apto === chatbotData.petData.apto &&
-            animal.gender === chatbotData.petData.gender
+            animal.gender === chatbotData.petData.gender &&
+            animal.available
           );
         }
       })
@@ -75,6 +79,10 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
       const currentAnimal = Math.floor(Math.random() * foundAnimals.length);
 
       setAnimalMatch(foundAnimals[currentAnimal]);
+
+      setFoundAnimalsFiltered(
+        foundAnimals.filter((_, index) => index !== currentAnimal)
+      );
     }
   }, [foundAnimals]);
 
@@ -219,6 +227,8 @@ const ChatbotMain = ({ setShowChatbot, chatbotData, setChatbotData }) => {
         <ChatbotMatch
           animalMatch={animalMatch}
           setShowChatbot={setShowChatbot}
+          foundAnimalsFiltered={foundAnimalsFiltered}
+          setFoundAnimals={setFoundAnimals}
         />
       )}
     </>

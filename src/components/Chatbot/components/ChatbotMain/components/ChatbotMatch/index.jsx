@@ -1,13 +1,24 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import gatito from "../../../../../../assets/gatito-white.png";
+import animalPlaceholder from "../../../../../../assets/animal-paw.png";
 import exit from "../../../../../../assets/exit.svg";
 import texting from "../../../../../../assets/waiting-texting.gif";
 import "../../../../styles.css";
 
-const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
+const ChatbotMatch = ({
+  animalMatch,
+  setShowChatbot,
+  foundAnimalsFiltered,
+  setFoundAnimals,
+}) => {
   const [messageLoading, setMessageLoading] = useState(false);
 
-  const animalMessages = animalMatch?.historia ?? null;
+  const animalStory = useMemo(() => animalMatch?.historia, [animalMatch]);
+
+  const animalId = useMemo(
+    () => animalMatch?.profile.split("?")[1],
+    [animalMatch]
+  );
 
   const [chat, setChat] = useState([
     `Oi, eu sou ${animalMatch.gender.toLowerCase() === "macho" ? "o" : "a"} ${
@@ -20,10 +31,19 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
   const [chatEnded, setChatEnded] = useState(false);
 
   useEffect(() => {
-    if (chat.length < animalMessages?.length) {
+    setChat([
+      `Oi, eu sou ${animalMatch.gender.toLowerCase() === "macho" ? "o" : "a"} ${
+        animalMatch.name
+      }!`,
+    ]);
+    setChatEnded(false);
+  }, [foundAnimalsFiltered]);
+
+  useEffect(() => {
+    if (chat.length < 2) {
       setMessageLoading(true);
       setTimeout(() => {
-        setChat([...chat, animalMessages[chat.length]]);
+        setChat([...chat, animalStory]);
         setMessageLoading(false);
       }, 2000);
     } else {
@@ -46,6 +66,10 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
     scrollToBottom();
   }, [chat, messageLoading, chatEnded]);
 
+  const handleNewAnimal = () => {
+    setFoundAnimals(foundAnimalsFiltered);
+  };
+
   return (
     <div className="chatbot-main">
       <div
@@ -55,9 +79,14 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
         }`}
       >
         <div className="chatbot-header-info">
-          <div className="chatbot-header-image">
-            <img src={gatito} alt="chatbot" />
-          </div>
+          <div
+            className="chatbot-header-image match"
+            style={{
+              backgroundImage: `url("${
+                animalMatch.image ?? animalPlaceholder
+              }")`,
+            }}
+          />
           <div className="chatbot-header-name animal-match">
             <h3>{animalMatch.name.toLowerCase()}</h3>
             <span>Online</span>
@@ -78,7 +107,9 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
               </button>
             </div>
             <div className="animal-info-image">
-              <img src={animalMatch.image} alt="animal" />
+              {animalMatch.image && (
+                <img src={animalMatch.image} alt="animal" />
+              )}
             </div>
             <ul className="animal-info-data">
               <li>
@@ -119,7 +150,10 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
               }`}
             >
               <div className="chatbot-link">
-                <a target="_top" href="https://gaarcampinas.org/pretermo.php">
+                <a
+                  target="_top"
+                  href={`https://gaarcampinas.org/pretermo.php?${animalId}`}
+                >
                   Quero adotar!
                 </a>
               </div>
@@ -130,13 +164,15 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
             {chat?.map((chatMessage, index) => {
               return (
                 <div key={index} className={`chatbot-message`}>
-                  <div className="chatbot-message-image animal-match">
-                    <img
-                      src={gatito}
-                      alt="chatbot"
-                      onClick={() => setAnimalInfoOpen(true)}
-                    />
-                  </div>
+                  <div
+                    className="chatbot-message-image match animal-match"
+                    style={{
+                      backgroundImage: `url("${
+                        animalMatch.image ?? animalPlaceholder
+                      }")`,
+                    }}
+                    onClick={() => setAnimalInfoOpen(true)}
+                  />
                   <div className="chatbot-message-text">
                     <p>{chatMessage}</p>
                   </div>
@@ -145,9 +181,15 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
             })}
             {messageLoading && (
               <div className={`chatbot-message waiting`}>
-                <div className="chatbot-message-image">
-                  <img src={gatito} alt="chatbot" />
-                </div>
+                <div
+                  className="chatbot-message-image match animal-match"
+                  style={{
+                    backgroundImage: `url("${
+                      animalMatch.image ?? animalPlaceholder
+                    }")`,
+                  }}
+                  onClick={() => setAnimalInfoOpen(true)}
+                />
                 <div className="chatbot-message-waiting">
                   <img
                     src={texting}
@@ -157,6 +199,24 @@ const ChatbotMatch = ({ animalMatch, setShowChatbot }) => {
                 </div>
               </div>
             )}
+            {chatEnded && (
+              <div className="chatbot-link">
+                <a
+                  target="_top"
+                  href={`https://gaarcampinas.org/pretermo.php?${animalId}`}
+                >
+                  Quero adotar!
+                </a>
+              </div>
+            )}
+            {foundAnimalsFiltered.length > 0 && chatEnded && (
+              <div className="chatbot-link secondary">
+                <button onClick={() => handleNewAnimal()}>
+                  Conhecer outro animal
+                </button>
+              </div>
+            )}
+
             <div ref={messagesEndRef} />
           </div>
         )}

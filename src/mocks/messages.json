@@ -21,13 +21,13 @@
           {
             "property": "type",
             "trigger": "start-cat",
-            "label": "Gato",
+            "label": "Felina",
             "value": "Gatos"
           },
           {
             "property": "type",
             "trigger": "start-dog",
-            "label": "Cachorro",
+            "label": "Canina",
             "value": "Cachorros"
           }
         ],

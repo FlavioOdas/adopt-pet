@@ -137,6 +137,21 @@
   height: auto;
 }
 
+.chatbot-header-image.match {
+  height: 68px;
+  border-radius: 50%;
+  background-size: cover;
+  border: 2px solid black;
+}
+
+.chatbot-message-image.match {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-size: cover;
+  border: 2px solid black;
+}
+
 .chatbot-header-name {
   margin-left: 6px;
 }
@@ -340,6 +355,14 @@
   color: #000;
   border: none;
   cursor: pointer;
+}
+
+.chatbot-link.secondary a,
+.chatbot-link.secondary button {
+  margin-top: 10px;
+  width: 90%;
+  background: none;
+  font-size: 11px;
 }
 
 .animal-info-go-back {
